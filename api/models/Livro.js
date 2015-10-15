@@ -1,0 +1,36 @@
+/**
+* Livro.js
+*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
+*/
+
+module.exports = {
+
+  attributes: {
+	titulo: {
+		type: 'string',
+		required: true
+	},
+	editora: {
+		type: 'string',
+		required: true
+	},
+	edicao: {
+		type: 'string',
+		required: true
+	},
+	AnodePublicacao: 'integer',
+	
+	partOf:{
+		model: 'Curso'
+	},
+	
+	capitulos:{
+		collection:'Capitulo',
+		via: 'belongsTo'
+	}
+	
+  }
+};
+

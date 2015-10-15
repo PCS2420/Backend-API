@@ -1,0 +1,28 @@
+<div class="container">
+	<h3>Livros</h3>
+		<table class ='table'>
+			<tr>
+			<th>Titulo</th>
+			<th>Editora</th>
+			<th>Edicao</th>
+			<th></th>
+			<th></th>
+			</tr>
+			
+			<% _.each(livros, function(livro) { %>
+			<tr data-id="<%= livro.id %>" data-model="user">
+			<td><%= livro.titulo %></td>
+			<td><%= livro.editora %></td>
+			<td><%= livro.edicao %></td>
+			<td><a href="/livro/show/<%= livro.id %>" class="btn btn-sm btn-primary">Show</a></td>
+			<td><a href="/livro/edit/<%= livro.id %>" class="btn btn-sm btn-primary">Edit</a></td>
+				
+			
+			<td><form action="/livro/destroy/<%= livro.id %>" method="POST">
+				<input type="hidden" name="_method" value="Delete"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+			</tr>
+			
+			<%})%>
+		</table>
+	</div>
