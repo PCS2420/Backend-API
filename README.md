@@ -6,6 +6,38 @@ a [Sails](http://sailsjs.org) application
 
 Projeto da disciplina PCS2420 - Laboratório de Engenharia de Software II
 
+## Instalacao
+
+Instalar nodejs
+Instalar Git
+
+Instalar sails:
+
+```
+sudo npm -g install sails
+```
+
+Baixar Projeto:
+```
+git clone https://github.com/PCS2420/Backend-API.git
+```
+
+Instalar dependencias:
+```
+cd Backend-API
+npm install
+```
+
+Rodar projeto:
+```
+sails lift
+```
+
+Acesar pelo navegador:
+```
+localhost:1337
+```
+
 ## Instruções
 
 ### Passos realizados para a criação do projeto com a configuração inicial
@@ -36,13 +68,13 @@ No arquivo config/connections.js
 
 ```
 MongodbServer: {
-	adapter: 'sails-mongo',
-	host: 'localhost',
-	port: 27017,
-	// user: 'username',
-	// password: 'password',
-	database: 'sinestesia_db'
-},
+    adapter: 'sails-mongo',
+    host: 'ds035004.mongolab.com',
+    port: 35004,
+    user: 'sails',
+    password: 'sails',
+    database: 'sinestesia'
+  },
 ``` 
 
 No arquivo config/models.js
