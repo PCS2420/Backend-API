@@ -18,7 +18,7 @@ module.exports = {
 			type: 'STRING'
 		},
 
-		nusp: {
+		cpf: {
 			type: 'INT'
 		},
 
@@ -32,6 +32,7 @@ module.exports = {
 
 		senha: {
 			type: 'STRING'
+			required: true
 		},
 
 		pontos: {
