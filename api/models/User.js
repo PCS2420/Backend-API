@@ -31,7 +31,7 @@ module.exports = {
 		},
 
 		senha: {
-			type: 'STRING'
+			type: 'STRING',
 			required: true
 		},
 
