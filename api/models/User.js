@@ -18,11 +18,27 @@ module.exports = {
 			type: 'STRING'
 		},
 
+		nusp: {
+			type: 'INT'
+		},
+
 		curso: {
 			type: 'STRING'
 		},
 
+		departamento: {
+			type: 'STRING'
+		},
+
 		senha: {
+			type: 'STRING'
+		},
+
+		pontos: {
+			type: 'INT'
+		},
+
+		nomePersonagem: {
 			type: 'STRING'
 		}
 
