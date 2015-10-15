@@ -24,13 +24,7 @@ module.exports = {
 	
 	partOf:{
 		model: 'Curso'
-	},
-	
-	capitulos:{
-		collection:'Capitulo',
-		via: 'belongsTo'
 	}
-	
   }
 };
 
