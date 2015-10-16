@@ -39,6 +39,8 @@ module.exports = {
 			res.view();
 		
 	},
+
+	/*
 	
 	up: function(req,res,next){
 		Capitulo.create(req.params.all(), function capituloCreated(err, capitulo){
@@ -49,7 +51,7 @@ module.exports = {
 			res.redirect('livro/up/'+livro.id)
 		});
 	},
-	
+	*/
 	/*index: function(req,res,next){
 		Livro.find(function foundLivros(err,livros){
 			if(err) return next(err);

@@ -9,38 +9,54 @@ module.exports = {
 
 	attributes: {
 
-		nome: {
-			type: 'STRING',
+		login: {
+			type: 'string',
 			required: true
-		},
-
-		designacao: {
-			type: 'STRING'
-		},
-
-		cpf: {
-			type: 'INT'
-		},
-
-		curso: {
-			type: 'STRING'
-		},
-
-		departamento: {
-			type: 'STRING'
 		},
 
 		senha: {
-			type: 'STRING',
+			type: 'string',
 			required: true
 		},
 
-		pontos: {
-			type: 'INT'
+		nome: {
+			type: 'string',
+			required: true
 		},
 
+		cpf: {
+			type: 'int'
+		},
+
+		/*
+		Tipos de usuarios: 
+			Administrador
+			Revisor
+			Descritor
+			DescritorRevisor
+		*/
+		tipo: {
+			type: 'string'
+		},
+
+		/* Apenas para Descritor*/
+		pontuacao: {
+			type: 'int'
+		},
+
+		/* Apenas para Descritor*/
 		nomePersonagem: {
-			type: 'STRING'
+			type: 'string'
+		},
+
+		/*Apenas Descritor e Revisor*/
+		curso: {
+			model: 'Curso'
+		},
+
+		/*Apenas Descritor e Revisor*/
+		descricao: {
+			model: 'Descricao'
 		}
 
 	}

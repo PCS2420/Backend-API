@@ -23,7 +23,7 @@ module.exports = {
 		});
 	},
 	
-	
+	/*
 	show: function(req, res, next){
 		Curso.findOne(req.param('id'), function foundCurso(err,curso){
 			if(err) return next(err);
@@ -33,6 +33,7 @@ module.exports = {
 			});
 		});
 	},
+	*/
 	
 };
 

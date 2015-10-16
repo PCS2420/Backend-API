@@ -9,14 +9,19 @@ module.exports = {
 
   attributes: {
 	  
-	  name:{
+	  nome:{
 		  type:'string',
 		  required: true
+	  }, 
+
+	  livros:{
+		  collection:'Livro',
+		  via:'curso'
 	  },
-	  
-	  has:{
-		  collections:'Livro',
-		  via:'partOf'
+
+	  usuarios:{
+	  	  collection:'User',
+		  via:'curso'
 	  }
   }
 };

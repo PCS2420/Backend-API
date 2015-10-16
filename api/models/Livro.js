@@ -12,19 +12,32 @@ module.exports = {
 		type: 'string',
 		required: true
 	},
+
 	editora: {
 		type: 'string',
-		required: true
 	},
+
 	edicao: {
 		type: 'string',
-		required: true
 	},
-	AnodePublicacao: 'integer',
-	
-	partOf:{
+
+	anodePublicacao: {
+		type: 'integer'
+	},
+
+	autor: {
+		type: 'string'
+	},
+
+	curso:{
 		model: 'Curso'
+	},
+
+	imagens:{
+		collection:'Imagem',
+		via:'livro'
 	}
+
   }
 };
 
