@@ -20,7 +20,7 @@ module.exports = {
 	  },
 
 	  usuarios:{
-	  	  collection:'User',
+	  	  collection:'Usuario',
 		  via:'curso'
 	  }
   }

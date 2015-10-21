@@ -55,7 +55,8 @@ module.exports = {
 
 		/*Apenas Descritor e Revisor*/
 		descricao: {
-			model: 'Descricao'
+			collection:'Descricao',
+		  	via:'descritor'
 		}
   }
 };
