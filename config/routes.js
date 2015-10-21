@@ -36,11 +36,6 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  // Custom CRUD Rest Route
-    'post /user': 'UserController.create',
-    'get /user/:id?': 'UserController.find',
-    'put /user/:id?': 'UserController.update',
-    'delete /user/:id?': 'UserController.destroy'
 
   /***************************************************************************
   *                                                                          *
