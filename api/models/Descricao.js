@@ -13,7 +13,7 @@ module.exports = {
 	  Possíveis estados:
 		Aberto
 		EmAndamento
-		Encerrado
+		Pronto
 	  */
 	  estado:{
 		  type:'string',
