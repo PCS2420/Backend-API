@@ -5,6 +5,8 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
+var bcrypt = require('bcrypt');
+
 module.exports = {
 
   attributes: {
@@ -28,7 +30,7 @@ module.exports = {
 		},
 
 		/*
-		Tipos de usuarios: 
+		Tipos de usuarios:
 			Administrador
 			Revisor
 			Descritor
@@ -57,7 +59,40 @@ module.exports = {
 		descricao: {
 			collection:'Descricao',
 		  	via:'descritor'
-		}
-  }
+		},
+
+		toJSON: function() {
+			var obj = this.toObject();
+			delete obj.senha;
+			return obj;
+	    }
+  },
+
+	beforeCreate: function(user, cb) {
+      bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(user.senha, salt, function(err, hash) {
+			if (err) {
+				console.log(err);
+				cb(err);
+			}else{
+				user.senha = hash;
+				cb(null, user);
+			}
+        });
+      });
+    },
+
+    validPassword: function(password, user, cb) {
+      bcrypt.compare(password, user.senha, function(err, match) {
+
+        if (err) cb(err);
+
+        if (match) {
+          cb(null, true);
+        } else {
+          cb(err);
+        }
+      });
+    }
 };
 

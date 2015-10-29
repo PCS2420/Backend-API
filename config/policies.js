@@ -26,7 +26,19 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': true,
+
+  'UsuarioController': {
+    'cadastro': true,
+    'authenticate': ['tokenAuth', 'ownUser'],
+    'findOne': ['tokenAuth', 'ownUser'],
+    'remove': ['tokenAuth', 'ownUser'],
+  },
+
+  // 'AuthController': {
+  //   'process': ['tokenAuth', 'ownUser'],
+  //   '*': false
+  // }
 
   /***************************************************************************
   *                                                                          *
