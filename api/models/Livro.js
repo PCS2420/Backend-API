@@ -36,6 +36,10 @@ module.exports = {
 	imagens:{
 		collection:'Imagem',
 		via:'livro'
+	},
+
+	capa: {
+		type: 'string'
 	}
 
   }

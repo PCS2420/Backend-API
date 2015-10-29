@@ -11,7 +11,7 @@ module.exports = {
 
 
     local:{
-		  type:'string',
+		type:'string',
 	}, 
 
 	/*
@@ -20,15 +20,36 @@ module.exports = {
 		texto
 	*/
 	tipoDeContexto:{
-	  	  type:'string',
+	  	type:'string',
 	},
 
 	contexto: {
-		  type:'string',
+		type:'string',
 	},
 
 	descricao: {
-		 model: 'Descricao',
+		type: 'string',
+	},
+
+	/*
+	  Possíveis estados:
+		Aberto
+		EmAndamento
+		Pronto
+		EmRevisao
+		Revisado
+	 */
+	estado: {
+		type: 'string',
+	},
+
+
+	descritor:{
+	  	model: 'Usuario'
+	},
+
+	revisor:{
+	  	model: 'Usuario'
 	},
 
 	livro:{

@@ -55,11 +55,19 @@ module.exports = {
 			model: 'Curso'
 		},
 
-		/*Apenas Descritor e Revisor*/
-		descricao: {
-			collection:'Descricao',
+		/*Apenas Descritor*/
+		descricaoImagens: {
+			collection:'Imagem',
 		  	via:'descritor'
 		},
+
+		/*Apenas Revisor*/
+		revisaoImagens: {
+			collection:'Imagem',
+		  	via:'revisor'
+		},
+
+
 
 		toJSON: function() {
 			var obj = this.toObject();
