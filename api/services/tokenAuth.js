@@ -5,7 +5,7 @@ module.exports.issueToken = function(payload) {
         payload,
         process.env.TOKEN_SECRET || "our biggest secret",
         {
-            expireInMinutes: 1440 // 24h
+            expireInMinutes: 1 // 24h
         }
     );
   return token;

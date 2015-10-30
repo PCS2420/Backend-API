@@ -30,7 +30,6 @@ module.exports.policies = {
 
   'UsuarioController': {
     'cadastro': true,
-    'authenticate': ['tokenAuth', 'ownUser'],
     'findOne': ['tokenAuth', 'ownUser'],
     'remove': ['tokenAuth', 'ownUser'],
   },

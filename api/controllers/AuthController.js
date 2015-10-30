@@ -32,7 +32,7 @@ module.exports = {
         if (!valid) {
           return res.json(401, {err: 'invalid username or password'});
         } else {
-          res.json({user: user, token: tokenAuth.issueToken(user.id)});
+          res.json({user: user, token: tokenAuth.issueToken({sid: user.id})});
         }
       });
     })
