@@ -39,7 +39,7 @@ module.exports.routes = {
   '/home': {
     controller: 'AuthController',
     action: 'authenticate'
-  }
+  },
   // ,
   // '/login': {
   //   controller: 'AuthController',
@@ -49,6 +49,10 @@ module.exports.routes = {
   //   controller: 'AuthController',
   //   action: 'logout'
   // }
+  'GET /imagem/:id/imagem': 'ImagemController.getImagem',
+  'POST /imagem/:id/imagem': 'ImagemController.postImagem',
+  'GET /imagem/:id/contexto': 'ImagemController.getContexto',
+  'POST /imagem/:id/contexto': 'ImagemController.postContexto',
 
 
   /***************************************************************************
