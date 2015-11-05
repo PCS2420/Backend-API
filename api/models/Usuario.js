@@ -5,14 +5,15 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
-var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 
 module.exports = {
 
   attributes: {
         login: {
 			type: 'string',
-			required: true
+			required: true,
+            unique: true
 		},
 
 		senha: {
@@ -77,30 +78,39 @@ module.exports = {
   },
 
 	beforeCreate: function(user, cb) {
-      bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(user.senha, salt, function(err, hash) {
+        var salt = genSalt();
+        encrypt(user.senha, salt, function(err, hash) {
 			if (err) {
-				console.log(err);
 				cb(err);
 			}else{
 				user.senha = hash;
 				cb(null, user);
 			}
         });
-      });
     },
 
     validPassword: function(password, user, cb) {
-      bcrypt.compare(password, user.senha, function(err, match) {
-
-        if (err) cb(err);
-
-        if (match) {
-          cb(null, true);
-        } else {
-          cb(err);
-        }
-      });
+      compare(password, user.senha, cb);
     }
 };
 
+function encrypt (password, salt, next) {
+    crypto.pbkdf2(password, salt, 2048, 512, "sha256", function (err, hash) {
+        return next(err, salt + hash.toString('hex'));
+    });
+}
+
+function compare (password, saved, next) {
+    salt = saved.substring(0, 20);
+    hash = saved.substring(20);
+    crypto.pbkdf2(password, salt, 2048, 512, "sha256", function (err, newHash){
+        if (err){
+            return next(err);
+        }
+        return next(null, hash === newHash.toString('hex'))
+    });
+}
+
+function genSalt () {
+    return crypto.randomBytes(10).toString('hex');
+}
