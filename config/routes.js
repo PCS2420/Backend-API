@@ -54,6 +54,9 @@ module.exports.routes = {
   'GET /imagem/:id/contexto': 'ImagemController.getContexto',
   'POST /imagem/:id/contexto': 'ImagemController.postContexto',
 
+  'PUT /imagem/:id/aceita': 'ImagemController.aceita',
+  'PUT /imagem/:id/editada': 'ImagemController.editada',
+  'PUT /imagem/:id/rejeitada': 'ImagemController.rejeitada',
 
   /***************************************************************************
   *                                                                          *

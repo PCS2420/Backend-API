@@ -36,6 +36,7 @@ module.exports = {
 			Revisor
 			Descritor
 			DescritorRevisor
+			Publicador
 		*/
 		tipo: {
 			type: 'string'
@@ -91,7 +92,7 @@ module.exports = {
 
     validPassword: function(password, user, cb) {
       compare(password, user.senha, cb);
-    }
+    }                   
 };
 
 function encrypt (password, salt, next) {
