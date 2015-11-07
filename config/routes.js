@@ -67,5 +67,8 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  //dirty but no idea how to test in another way...
+  'POST /mudarsenha/:login/:senha': 'UsuarioController.mudarSenha',
+  'GET /mudarsenha/:login/:senha': 'UsuarioController.mudarSenha',
 
 };

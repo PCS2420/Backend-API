@@ -23,6 +23,24 @@ module.exports = {
     })
   },
 
+  mudarSenha: function(req, res){
+    var login = req.param('login');
+    var novoSenha = req.param('senha');
+
+    Usuario.update({login:login},{senha:novoSenha}).exec(function CB(err, updated){
+      if(err){
+        res.send(500, {error: "DB Error"});
+        console.log("fail");
+      }else{
+        console.log("success");
+        console.log(updated);
+        res.send(updated);
+      }
+    });
+
+  }
+
+
 };
 
 
