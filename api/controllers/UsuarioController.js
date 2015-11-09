@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  
+
   cadastro: function (req, res) {
 
     var novoUsuario = req.params.all()
@@ -22,6 +22,52 @@ module.exports = {
       });
     })
   },
+
+  mudarSenha: function(req, res){
+
+    var login = req.param('login');
+    var oldPassword = req.param('oldPassword');
+    var newPassword = req.param('newPassword');
+
+    Usuario.findOne({login: login}, function(err, user) { // find user with login 'login'
+
+      Usuario.validPassword(oldPassword, user, function(err, valid){ // check if old password is ok
+        if(err){
+          return res.json(401, {err: 'forbidden'});
+        }
+
+         if (!valid) {
+          return res.json(401, {err: 'Wrong password'});
+        } else {
+
+          // wrapper to use beforeCreate function
+          var tempUser = {
+            senha: newPassword
+          };
+
+          Usuario.beforeCreate(tempUser, function(err, returnUser){
+            if(err){
+                res.send(401, {error: "Error when trying to hash newPassword"});
+            }
+
+            Usuario.update({login:login},{senha:returnUser.senha}).exec(function(err, updated){
+              if(err){
+                res.send(500, {error: "DB Error"});
+              }else{
+                res.send(200);
+              }
+            });
+
+          });
+        }
+      })
+
+
+    })
+
+
+
+  }
 
 };
 
