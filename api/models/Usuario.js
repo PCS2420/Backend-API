@@ -37,6 +37,8 @@ module.exports = {
 			Descritor
 			DescritorRevisor
 			Publicador
+			Apagado
+			Bloqueado
 		*/
 		tipo: {
 			type: 'string'
