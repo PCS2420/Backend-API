@@ -11,7 +11,7 @@ module.exports = {
 	//POST
 	descreve: function (req, res) {
         var novaDescricao = req.params.all();
-        //Body: descritor: usuario_id, texto: descricao, imagem: imagem_id
+        //Body: descritor: usuario_id, texto: texto, imagem: imagem_id
         //      estado: "Espera", revisor: "" 
 
         novaDescricao.estado = "Espera"
