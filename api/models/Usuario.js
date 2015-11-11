@@ -59,13 +59,13 @@ module.exports = {
 
 		/*Apenas Descritor*/
 		descricaoImagens: {
-			collection:'Imagem',
+			collection:'Descricao',
 		  	via:'descritor'
 		},
 
 		/*Apenas Revisor*/
 		revisaoImagens: {
-			collection:'Imagem',
+			collection:'Descricao',
 		  	via:'revisor'
 		},
 

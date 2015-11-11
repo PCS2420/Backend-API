@@ -28,7 +28,7 @@ module.exports = {
 	},
 
 	descricao: {
-		type: 'string',
+		model: 'Descricao',
 	},
 
 	/*
@@ -43,17 +43,14 @@ module.exports = {
 		type: 'string',
 	},
 
-
-	descritor:{
-	  	model: 'Usuario'
-	},
-
-	revisor:{
-	  	model: 'Usuario'
-	},
-
 	livro:{
 		model: 'Livro'
+	},
+
+	histDescricoes: {
+		collection:'Descricao',
+		via:'imagem'
+
 	}
 
 
