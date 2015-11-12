@@ -112,6 +112,18 @@ module.exports = {
         });
 	},
 
+	
+	intDescricao: function (req, res) { //caso descrição seja interrompida por mudança de rota
+        var imagem_id = req.param('id');
+
+        //Atualiza imagem
+        Imagem.update(imagem_id,{estado:'Aberto'}).exec(function afterwards(err, updated){
+            if (err) {
+                res.send(500, err);
+            }
+        });
+	},
+
 
     cadastro: function (req, res, next){
         res.view();
