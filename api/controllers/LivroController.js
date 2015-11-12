@@ -5,6 +5,10 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var path = require('path');
+var mime = require('mime');
+var fs = require('fs');
+
 module.exports = {
     postCapa: function(req,res,next){
         var id = req.param('id');
