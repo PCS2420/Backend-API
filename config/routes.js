@@ -53,10 +53,13 @@ module.exports.routes = {
   'POST /imagem/:id/imagem': 'ImagemController.postImagem',
   'GET /imagem/:id/contexto': 'ImagemController.getContexto',
   'POST /imagem/:id/contexto': 'ImagemController.postContexto',
+  'PUT /imagem/:id/emAndamento': 'ImagemController.emAndamento',
+  'PUT /imagem/:id/intDescricao': 'ImagemController.intDescricao',
 
   'PUT /descricao/:id/aceita': 'DescricaoController.aceita',
   'PUT /descricao/:id/editada': 'DescricaoController.editada',
   'PUT /descricao/:id/rejeitada': 'DescricaoController.rejeitada',
+  
 
   'GET /livro/:id/capa': 'LivroController.getCapa',
   'POST /livro/:id/capa': 'LivroController.postCapa',
