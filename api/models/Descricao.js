@@ -13,7 +13,9 @@ module.exports = {
   	texto: {
 		type: 'string',
 	},
-
+	feedback: {
+		type: 'string',
+	},
   	/*
 	  Possíveis estados:
 		Espera
