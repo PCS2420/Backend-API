@@ -22,7 +22,7 @@ module.exports = {
                 if (err) {
                     return res.send(500, err);
                 }
-                imagem.local = path.basename(file[0].fd);
+                imagem.local = 'images/' + path.basename(file[0].fd);
                 imagem.save(function (err, savedImagem){
                     if (err) {
                         return res.send(500, err);
@@ -48,7 +48,7 @@ module.exports = {
                 if (err) {
                     return res.send(500, err);
                 }
-                imagem.contexto = path.basename(file[0].fd);
+                imagem.contexto = 'images/' +  path.basename(file[0].fd);
                 imagem.save(function (err, savedImagem){
                     if (err) {
                         return res.send(500, err);

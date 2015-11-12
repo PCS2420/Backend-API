@@ -9,21 +9,21 @@ module.exports = {
 
   attributes: {
 
-		limiarPositivo: {
-			type: 'int'
-		},
-		limiarNegativo: {
-			type: 'int'
-		},
-		descricaoAceita: {
-			type: 'int'
-		},
-		descricaoEditada: {
-			type: 'int'
-		},
-		descricaoRejeitada: {
-			type: 'int'
-		},
+        limiarPositivo: {
+            type: 'int'
+        },
+        limiarNegativo: {
+            type: 'int'
+        },
+        descricaoAceita: {
+            type: 'int'
+        },
+        descricaoEditada: {
+            type: 'int'
+        },
+        descricaoRejeitada: {
+            type: 'int'
+        },
   }
 };
 

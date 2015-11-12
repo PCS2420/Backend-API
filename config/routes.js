@@ -58,6 +58,9 @@ module.exports.routes = {
   'PUT /descricao/:id/editada': 'DescricaoController.editada',
   'PUT /descricao/:id/rejeitada': 'DescricaoController.rejeitada',
 
+  'GET /livro/:id/capa': 'LivroController.getCapa',
+  'POST /livro/:id/capa': 'LivroController.postCapa',
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
