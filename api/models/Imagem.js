@@ -11,47 +11,51 @@ module.exports = {
 
 
     local:{
-		type:'string',
-	}, 
+        type:'string',
+    }, 
 
-	/*
-	Tipos de contexto:
-		imagem
-		texto
-	*/
-	tipoDeContexto:{
-	  	type:'string',
-	},
+    /*
+    Tipos de contexto:
+        imagem
+        texto
+    */
+    tipoDeContexto:{
+        type:'string',
+    },
 
-	contexto: {
-		type:'string',
-	},
+    contexto: {
+        type:'string',
+    },
 
-	descricao: {
-		model: 'Descricao',
-	},
+    pagina: {
+        type:'integer',
+    },
 
-	/*
-	  Possíveis estados:
-		Aberto
-		EmAndamento
-		Pronto
-		EmRevisao
-		Revisado
-	 */
-	estado: {
-		type: 'string',
-	},
+    descricao: {
+        model: 'Descricao',
+    },
 
-	livro:{
-		model: 'Livro'
-	},
+    /*
+      Possíveis estados:
+        Aberto
+        EmAndamento
+        Pronto
+        EmRevisao
+        Revisado
+     */
+    estado: {
+        type: 'string',
+    },
 
-	histDescricoes: {
-		collection:'Descricao',
-		via:'imagem'
+    livro:{
+        model: 'Livro'
+    },
 
-	}
+    histDescricoes: {
+        collection:'Descricao',
+        via:'imagem'
+
+    }
 
 
   }
