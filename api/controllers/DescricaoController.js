@@ -27,6 +27,7 @@ module.exports = {
             });
         });
     },
+	
 
     aceita: function (req, res) {
 
