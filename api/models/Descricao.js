@@ -14,6 +14,9 @@ module.exports = {
 		type: 'string',
 	},
 
+  	comentario: {
+		type: 'string',
+	},
   	/*
 	  Possíveis estados:
 		Espera

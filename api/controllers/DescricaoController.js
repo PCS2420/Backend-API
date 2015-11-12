@@ -16,6 +16,7 @@ module.exports = {
 
         novaDescricao.estado = "Espera"
         novaDescricao.revisor = ""
+        novaDescricao.comentario = ""
 
         //Cria descricao
         Descricao.create(novaDescricao, function(err, descricao) {
@@ -33,10 +34,10 @@ module.exports = {
 
         var descricao_id = req.param('id');
         var revisor_id = req.param('revisor');
-
+        var comentario = req.param('comentario')
 
 		//Atualiza descricao
-        Descricao.update(descricao_id,{estado:'Aceita', revisor: revisor_id}).exec(function afterwards(err, descricao){
+        Descricao.update(descricao_id,{estado:'Aceita', revisor: revisor_id, comentario: comentario}).exec(function afterwards(err, descricao){
             if (err) {  res.send(500, err);  }
 
             //Atualiza imagem
@@ -80,10 +81,10 @@ module.exports = {
         var descricao_id = req.param('id');
         var revisor_id = req.param('revisor');
         var texto = req.param('descricao')
-
+        var comentario = req.param('comentario')
 
 		//Atualiza descricao
-        Descricao.update(descricao_id,{estado:'Editada', revisor: revisor_id, texto: texto}).exec(function afterwards(err, descricao){
+        Descricao.update(descricao_id,{estado:'Editada', revisor: revisor_id, texto: texto, comentario: comentario}).exec(function afterwards(err, descricao){
             if (err) {  res.send(500, err);  }
 
             //Atualiza imagem
@@ -126,10 +127,10 @@ module.exports = {
 
         var descricao_id = req.param('id');
         var revisor_id = req.param('revisor');
-
+        var comentario = req.param('comentario')
 
 		//Atualiza descricao
-        Descricao.update(descricao_id,{estado:'Rejeitada', revisor: revisor_id}).exec(function afterwards(err, descricao){
+        Descricao.update(descricao_id,{estado:'Rejeitada', revisor: revisor_id, comentario: comentario}).exec(function afterwards(err, descricao){
             if (err) {  res.send(500, err);  }
 
             //Atualiza imagem
