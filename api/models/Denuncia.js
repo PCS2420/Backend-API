@@ -8,6 +8,7 @@
 module.exports = {
 
   attributes: {
+	  
 	revisor: {
 		model: 'Usuario'
 	},
@@ -16,7 +17,7 @@ module.exports = {
 	},
 	descricao: {
 		type: 'string'
-	}
+	},
 	comentario: {
 		type: 'string',
 	}
