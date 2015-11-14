@@ -28,12 +28,11 @@ module.exports = {
         if (err) {
           return res.json(403, {err: 'forbidden'});
         }
-
         if (!valid) {
           return res.json(401, {err: 'invalid username or password'});
-        } else {
-          res.json({user: user, token: tokenAuth.issueToken({sid: user.id})});
         }
+        res.json({user: user, token: tokenAuth.issueToken({sid: user.id})});
+        
       });
     })
   },
