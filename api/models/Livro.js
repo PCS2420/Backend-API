@@ -40,6 +40,14 @@ module.exports = {
 
 	capa: {
 		type: 'string'
+	},
+
+	prioridade: {
+		type: 'integer'
+	},
+
+	estado: {
+		type: 'string'
 	}
 
   }
