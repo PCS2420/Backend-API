@@ -6,58 +6,57 @@
 */
 
 module.exports = {
+	attributes: {
+		local:{
+			type:'string',
+		}, 
 
-  attributes: {
+		/*
+		Tipos de contexto:
+			imagem
+			texto
+		*/
+		tipoDeContexto:{
+			type:'string',
+		},
 
+		contexto: {
+			type:'string',
+		},
 
-    local:{
-        type:'string',
-    }, 
+		pagina: {
+			type:'integer',
+		},
 
-    /*
-    Tipos de contexto:
-        imagem
-        texto
-    */
-    tipoDeContexto:{
-        type:'string',
-    },
+		descricao: {
+			model: 'Descricao',
+		},
 
-    contexto: {
-        type:'string',
-    },
+		/*
+		  Possíveis estados:
+			Aberto
+			EmAndamento
+			Pronto
+			EmRevisao
+			Revisado
+		 */
+		estado: {
+			type: 'string',
+		},
 
-    pagina: {
-        type:'integer',
-    },
+		livro:{
+			model: 'Livro'
+		},
+		
+		histDescricoes: {
+			collection:'Descricao',
+			via:'imagem'
 
-    descricao: {
-        model: 'Descricao',
-    },
+		}
+	},
+	afterUpdate: function(updated, cb){
+		Livro.atualizaEstadoLivro(updated.livro, cb);
+	}
 
-    /*
-      Possíveis estados:
-        Aberto
-        EmAndamento
-        Pronto
-        EmRevisao
-        Revisado
-     */
-    estado: {
-        type: 'string',
-    },
-
-    livro:{
-        model: 'Livro'
-    },
-
-    histDescricoes: {
-        collection:'Descricao',
-        via:'imagem'
-
-    }
-
-
-  }
 };
 

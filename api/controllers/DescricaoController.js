@@ -19,11 +19,11 @@ module.exports = {
 
         //Cria descricao
         Descricao.create(novaDescricao, function(err, descricao) {
-            if (err) { res.send(500, err); }
+            if (err) { return res.send(500, err); }
             //Atualiza imagem
             Imagem.update(descricao.imagem,{estado:'Pronto', descricao: descricao.id}).exec(function afterwards(err, imagemAtualizada){
-                if (err) { res.send(500, err); }
-                res.send(imagemAtualizada);
+                if (err) { return res.send(500, err); }
+                return res.send(imagemAtualizada);
             });
         });
     },
@@ -37,11 +37,11 @@ module.exports = {
 
 		//Atualiza descricao
         Descricao.update(descricao_id,{estado:'Aceita', revisor: revisor_id}).exec(function afterwards(err, descricao){
-            if (err) {  res.send(500, err);  }
+            if (err) {  return res.send(500, err);  }
 
             //Atualiza imagem
 	        Imagem.update(descricao[0].imagem,{estado:'Revisado'}).exec(function afterwards(err, imagem){
-	            if (err) { res.send(500, err); }
+	            if (err) { return res.send(500, err); }
 	        });
 
 	        //Recupera info do usuario
@@ -67,9 +67,9 @@ module.exports = {
                         //Atualiza descritor
                         Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
                             if (err) {
-                                res.send(500, err);
+                                return res.send(500, err);
                             }
-                            res.send(descritorAtualizado);
+                            return res.send(descritorAtualizado);
                         });
                     });
                 }
@@ -86,11 +86,11 @@ module.exports = {
 
 		//Atualiza descricao
         Descricao.update(descricao_id,{estado:'Editada', revisor: revisor_id, texto: texto}).exec(function afterwards(err, descricao){
-            if (err) {  res.send(500, err);  }
+            if (err) {  return res.send(500, err);  }
 
             //Atualiza imagem
 	        Imagem.update(descricao[0].imagem,{estado:'Revisado'}).exec(function afterwards(err, imagem){
-	            if (err) { res.send(500, err); }
+	            if (err) { return res.send(500, err); }
 	        });
 
 	        //Recupera info do usuario
@@ -116,9 +116,9 @@ module.exports = {
                         //Atualiza descritor
                         Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
                             if (err) {
-                                res.send(500, err);
+                                return res.send(500, err);
                             }
-                            res.send(descritorAtualizado);
+                            return res.send(descritorAtualizado);
                         });
                     });
                 }
@@ -134,21 +134,21 @@ module.exports = {
 
 		//Atualiza descricao
         Descricao.update(descricao_id,{estado:'Rejeitada', revisor: revisor_id}).exec(function afterwards(err, descricao){
-            if (err) {  res.send(500, err);  }
+            if (err) {  return res.send(500, err);  }
 
             //Atualiza imagem
 	        Imagem.update(descricao[0].imagem,{estado:'Aberto', descricao: ""}).exec(function afterwards(err, imagem){
-	            if (err) { res.send(500, err); }
+	            if (err) { return res.send(500, err); }
 	        });
 
 
 	        //Recupera info do usuario
             Usuario.findOne(descricao[0].descritor).exec(function findOneCB(err, descritor){ 
-            	if (err) { res.send(500, err); }
+            	if (err) { return res.send(500, err); }
 
                 if (descritor.tipo != "Revisor"){
                     Pontuacao.findOne({nome: 'pontuacao_v1'}).exec(function findOneCB(err, pontuacao){ 
-                        if (err) { res.send(500, err); }
+                        if (err) { return res.send(500, err); }
 
                         //Logica para atualizar pontuacao e tipo de usuario
                         var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoRejeitada);
@@ -167,9 +167,9 @@ module.exports = {
                         //Atualiza descritor
                         Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
                             if (err) {
-                                res.send(500, err);
+                                return res.send(500, err);
                             }
-                            res.send(descritorAtualizado);
+                            return res.send(descritorAtualizado);
                         });
                     });
                 }

@@ -45,4 +45,14 @@ module.exports = {
             filestream.pipe(res);
         });
     },
+	getNumImagens: function(req, res){
+		id = req.param('id');
+		Livro.contaImagens(id, function(err, response){
+			if (err) {
+				console.log(err);
+				return res.send(err);
+			}
+			return res.send(response);
+		});
+	}
 };

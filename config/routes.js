@@ -62,6 +62,7 @@ module.exports.routes = {
 
   'GET /livro/:id/capa': 'LivroController.getCapa',
   'POST /livro/:id/capa': 'LivroController.postCapa',
+  'GET /livro/:id/numeroImagens': 'LivroController.getNumImagens'
 
   /***************************************************************************
   *                                                                          *
