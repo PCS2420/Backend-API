@@ -46,9 +46,26 @@ module.exports = {
 		type: 'integer'
 	},
 
-	estado: {
-		type: 'string'
-	}
+	precisaDescrever: {
+		type: 'boolean',
+		defaultsTo: 'true',
+        size: 1,
+		boolean: true 
+	}, 
+
+	precisaRevisar: {
+		type: 'boolean',
+		defaultsTo: 'false',
+        size: 1,
+		boolean: true
+	}, 
+
+	completo: {
+		type: 'boolean',
+		defaultsTo: 'false',
+        size: 1,
+		boolean: true 
+	}, 
 
   }
 };
