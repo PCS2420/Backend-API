@@ -130,8 +130,7 @@ module.exports = {
     },
 	
 	getImagemPorEstado: function(req,res){
-        var estado = req.param('estado');
-        Imagem.find({estado:estado}).exec(function findOneCB(err, imagens){
+        Imagem.find({estado:req.param('estado'), descritor : req.query.descritor}).exec(function findOneCB(err, imagens){
 			res.json(imagens);
         });
     }
