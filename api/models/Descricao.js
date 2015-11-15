@@ -16,6 +16,7 @@ module.exports = {
 
   	/*
 	  Possíveis estados:
+	    Salvo
 		Espera
 		Aceita
 		Editada
