@@ -128,6 +128,13 @@ module.exports = {
     cadastro: function (req, res, next){
         res.view();
     },
+	
+	getImagemPorEstado: function(req,res){
+        var estado = req.param('estado');
+        Imagem.find({estado:estado}).exec(function findOneCB(err, imagens){
+			res.json(imagens);
+        });
+    }
 
 };
 

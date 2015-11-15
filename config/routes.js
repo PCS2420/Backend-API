@@ -55,7 +55,8 @@ module.exports.routes = {
   'POST /imagem/:id/contexto': 'ImagemController.postContexto',
   'PUT /imagem/:id/emAndamento': 'ImagemController.emAndamento',
   'PUT /imagem/:id/intDescricao': 'ImagemController.intDescricao',
-  
+  'GET /imagem/estado/:estado': 'ImagemController.getImagemPorEstado',
+
   'PUT /descricao/:id/aceita': 'DescricaoController.aceita',
   'PUT /descricao/:id/editada': 'DescricaoController.editada',
   'PUT /descricao/:id/rejeitada': 'DescricaoController.rejeitada',
