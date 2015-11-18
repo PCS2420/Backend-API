@@ -12,7 +12,6 @@ module.exports = {
         //Body: descritor: usuario_id, texto: texto, imagem: imagem_id
         //      estado: "Salvo", revisor: "" 
         if (novaDescricao.descId !== "-1") { // Ja existe, so' atualizar
-			console.log("estou fazendo update");
             Descricao.update({id: novaDescricao.descId}, novaDescricao).exec( function afterwards(err, descricao) {
                 if (err) { return res.send(500, err); }
                 if (descricao.length === 0) return res.send(500, new Error('Descrição não encontrado.'));
@@ -37,16 +36,21 @@ module.exports = {
 		// Atualiza Descricao
         novaDescricao.estado = "Espera";
         novaDescricao.revisor = "";
-		
+
+		if (novaDescricao.descId === "" || novaDescricao.descId === undefined || novaDescricao.descId === null || novaDescricao.descId === "-1") {
+			return res.send(500, "Parametros incorretos");
+		} else if (novaDescricao.imagem === "" || novaDescricao.imagem === undefined || novaDescricao.imagem === null || novaDescricao.imagem === "-1") {
+			return res.send(500, "Parametros incorretos");
+		}
 		// voce vai passar o id com certeza absoluta, nao é? 
-        Descricao.update(novaDescricao.descId, {texto: novaDescricao.texto}).exec(function(err, descricao) {
+        Descricao.update(novaDescricao.descId, {texto: novaDescricao.texto}).exec(function(err, descricao) { //descricao e' uma array
             if (err) { return res.send(500, err); }
             //Atualiza imagem
 			var updateImagem = {};
 			updateImagem.estado = "Pronto";
 			updateImagem.descricao = novaDescricao.descId;
 			
-            Imagem.update(descricao.imagem, updateImagem).exec(function afterwards(err, imagemAtualizada){
+            Imagem.update(novaDescricao.imagem, updateImagem).exec(function afterwards(err, imagemAtualizada){
                 if (err) { return res.send(500, err); }
                 return res.send(imagemAtualizada);
             });
