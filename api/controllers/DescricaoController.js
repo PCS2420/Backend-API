@@ -44,11 +44,11 @@ module.exports = {
             //Atualiza imagem
 			var updateImagem = {};
 			updateImagem.estado = "Pronto";
-			updateImagem.descricao = descricao.id;
+			updateImagem.descricao = novaDescricao.descId;
 			
             Imagem.update(descricao.imagem, updateImagem).exec(function afterwards(err, imagemAtualizada){
                 if (err) { return res.send(500, err); }
-                res.send(imagemAtualizada);
+                return res.send(imagemAtualizada);
             });
         });
     },

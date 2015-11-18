@@ -56,6 +56,7 @@ module.exports.routes = {
   'PUT /imagem/:id/emAndamento': 'ImagemController.emAndamento',
   'PUT /imagem/:id/intDescricao': 'ImagemController.intDescricao',
   'GET /imagem/estado/:estado': 'ImagemController.getImagemPorEstado',
+  'GET /imagem/limpaTudo': 'ImagemController.limpaTudo',
 
   'PUT /descricao/:id/aceita': 'DescricaoController.aceita',
   'PUT /descricao/:id/editada': 'DescricaoController.editada',

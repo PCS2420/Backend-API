@@ -27,7 +27,7 @@ module.exports = {
                     if (err) {
                         return res.send(500, err);
                     }
-                    res.json(savedImagem);
+                    return res.json(savedImagem);
                 })
             });
         });
@@ -53,7 +53,7 @@ module.exports = {
                     if (err) {
                         return res.send(500, err);
                     }
-                    res.json(savedImagem);
+                    return res.json(savedImagem);
                 })
             });
         });
@@ -97,9 +97,9 @@ module.exports = {
         //Atualiza imagem
         Imagem.update(imagem_id,{estado:'EmAndamento', descritor: descritor_id}).exec(function afterwards(err, updated){
             if (err) {
-                res.send(500, err);
+                return res.send(500, err);
             }
-			res.send(200, "Ola!");
+			return res.send(200, "Ola!");
         });
 	},
 	
@@ -109,11 +109,11 @@ module.exports = {
 		
         //Atualiza imagem
         Imagem.update(imagem_id,{estado:'Aberto', descritor:''}).exec(function afterwards(err, updated){
-            if (err) {res.send(500, err);}
+            if (err) {res.send(500, err); return;}
 			// Deleta a descricao atrelada a ela
 			Descricao.destroy(descricao.descId).exec(function afterwards(err, descricao) {
-				if (err) {res.send(500, err);}
-				res.send(200, "yey");
+				if (err) { return res.send(500, err);}
+				return res.send(200, "yey");
 			});
         });
 	},
@@ -125,9 +125,20 @@ module.exports = {
 	
 	getImagemPorEstado: function(req,res){
         Imagem.find({estado:req.param('estado'), descritor : req.query.descritor}).exec(function findOneCB(err, imagens){
-			res.json(imagens);
+			return res.json(imagens);
         });
+    },
+	
+	limpaTudo: function(req,res){
+		N_MINUTOS = 0; // deleta todas de trinta minutos atras
+		var N_MINUTOS_ATRAS = new Date(new Date() - N_MINUTOS * 60000);
+		Imagem.update({updatedAt: {$lt : N_MINUTOS_ATRAS}}, {estado: "Aberto"}).exec(function afterwards(err, images) {
+			console.log("Todas as imagens do banco foram limpadas!");
+			if (err) { return res.send(500, err); }
+			return res.send(200, "ok!");
+		});
     }
+
 
 };
 
