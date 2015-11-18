@@ -23,6 +23,10 @@ module.exports = {
 			type: 'string',
 		},
 
+		areaConhecimento: {
+			type: 'string',
+		},
+
 		anodePublicacao: {
 			type: 'integer'
 		},
