@@ -99,17 +99,22 @@ module.exports = {
             if (err) {
                 res.send(500, err);
             }
+			res.send(200, "Ola!");
         });
 	},
 	
 	intDescricao: function (req, res) { //caso descrição seja interrompida por mudança de rota
         var imagem_id = req.param('id');	
-
+		var descricao = req.params.all();
+		
         //Atualiza imagem
         Imagem.update(imagem_id,{estado:'Aberto', descritor:''}).exec(function afterwards(err, updated){
-            if (err) {
-                res.send(500, err);
-            }
+            if (err) {res.send(500, err);}
+			// Deleta a descricao atrelada a ela
+			Descricao.destroy(descricao.descId).exec(function afterwards(err, descricao) {
+				if (err) {res.send(500, err);}
+				res.send(200, "yey");
+			});
         });
 	},
 

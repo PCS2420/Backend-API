@@ -11,20 +11,17 @@ module.exports = {
         var novaDescricao = req.params.all();
         //Body: descritor: usuario_id, texto: texto, imagem: imagem_id
         //      estado: "Salvo", revisor: "" 
-
-        novaDescricao.estado = "Salvo";
-        novaDescricao.revisor = "";
-        descId = novaDescricao.descId;
-        delete novaDescricao.descId;
-        if (descId !== "-1"){ // Ja existe, so' atualizar
-            Descricao.update({id: descId}, {texto: novaDescricao.texto}).exec( function afterwards(err, descricao) {
+        if (novaDescricao.descId !== "-1") { // Ja existe, so' atualizar
+			console.log("estou fazendo update");
+            Descricao.update({id: novaDescricao.descId}, novaDescricao).exec( function afterwards(err, descricao) {
                 if (err) { return res.send(500, err); }
                 if (descricao.length === 0) return res.send(500, new Error('Descrição não encontrado.'));
                 descricao = descricao[0];
                 return res.send({id: descricao.id});
             });
-        }else{
+        } else {
             //Cria descricao
+			delete novaDescricao.descId; // deleta o -1 para nao guardar com id errado
             Descricao.create(novaDescricao, function(err, descricao) {
                 if (err) { return res.send(500, err); }
                 return res.send({id: descricao.id});
@@ -33,29 +30,27 @@ module.exports = {
     },
     //POST
     descreve: function (req, res) {
-        var novaDescricao = req.params.all();
+        var novaDescricao = req.params.all(); // recebe texto imagem id
         //Body: descritor: usuario_id, texto: texto, imagem: imagem_id
         //      estado: "Espera", revisor: "" 
 
+		// Atualiza Descricao
         novaDescricao.estado = "Espera";
         novaDescricao.revisor = "";
-
-        atualizaImagem = function(err, descricao) {
+		
+		// voce vai passar o id com certeza absoluta, nao é? 
+        Descricao.update(novaDescricao.descId, {texto: novaDescricao.texto}).exec(function(err, descricao) {
             if (err) { return res.send(500, err); }
             //Atualiza imagem
-            Imagem.update(descricao.imagem,{estado:'Pronto', descricao: descricao.id}).exec(function afterwards(err, imagemAtualizada){
+			var updateImagem = {};
+			updateImagem.estado = "Pronto";
+			updateImagem.descricao = descricao.id;
+			
+            Imagem.update(descricao.imagem, updateImagem).exec(function afterwards(err, imagemAtualizada){
                 if (err) { return res.send(500, err); }
-                return res.send(imagemAtualizada);
+                res.send(imagemAtualizada);
             });
-        };
-            
-        if(novaDescricao.descId !== ""){ //Estava salvo ja, basta fazer update do estado e texto
-            //Cria descricao
-            Descricao.update(novaDescricao.descId, {texto: novaDescricao.texto}).exec(atualizaImagem);
-        } else {
-            //Cria descricao
-            Descricao.create(novaDescricao, atualizaImagem);
-        }
+        });
     },
     
 
@@ -206,7 +201,6 @@ module.exports = {
                 
             });  
         });
-    },
-
+    }
 };
 
