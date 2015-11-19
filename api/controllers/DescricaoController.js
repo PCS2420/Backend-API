@@ -164,9 +164,9 @@ module.exports = {
         //Atualiza descricao
         Descricao.update(descricao_id,{estado:'Rejeitada', revisor: revisor_id}).exec(function afterwards(err, descricao){
             if (err) {  return res.send(500, err);  }
-
+			console.log(descricao);
             //Atualiza imagem
-            Imagem.update(descricao[0].imagem,{estado:'Aberto', descricao: ""}).exec(function afterwards(err, imagem){
+            Imagem.update(descricao[0].imagem,{estado:'Aberto', descricao: "", descritor: "", revisor: ""}).exec(function afterwards(err, imagem){
                 if (err) { return res.send(500, err); }
             });
 

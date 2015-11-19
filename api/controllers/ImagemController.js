@@ -109,7 +109,7 @@ module.exports = {
 		
         //Atualiza imagem
         Imagem.update(imagem_id,{estado:'Aberto', descritor:''}).exec(function afterwards(err, updated){
-            if (err) {res.send(500, err); return;}
+            if (err) {return res.send(500, err);}
 			// Deleta a descricao atrelada a ela
 			Descricao.destroy(descricao.descId).exec(function afterwards(err, descricao) {
 				if (err) { return res.send(500, err);}
@@ -117,7 +117,32 @@ module.exports = {
 			});
         });
 	},
-
+	
+	emRevisao: function (req, res){
+		var imagem_id = req.param('id');
+		var revisor_id = req.param('revisor');
+		
+		//atualiza imagem para estado EmRevisao 
+		Imagem.update(imagem_id, {estado:'EmRevisao', revisor: revisor_id}).exec(function afterwards(err, updated){
+			if (err) {
+				return res.send(500, err);
+			}
+			return res.send(200, "emRevisao!");		
+		});
+	},
+	
+	intRevisao: function (req, res){
+		var imagem_id = req.param('id');	
+		var descricao = req.params.all();
+		
+        //Atualiza imagem
+        Imagem.update(imagem_id, {estado:'Pronto', revisor:''}).exec(function afterwards(err, updated){
+            if (err) {
+				return res.send(500, err);
+			}
+			return res.send(200, "revisao interrompida!");
+        });
+	},
 
     cadastro: function (req, res, next){
         res.view();
@@ -125,6 +150,12 @@ module.exports = {
 	
 	getImagemPorEstado: function(req,res){
         Imagem.find({estado:req.param('estado'), descritor : req.query.descritor}).exec(function findOneCB(err, imagens){
+			return res.json(imagens);
+        });
+    },
+	
+	getImagemPronto: function(req,res){
+        Imagem.find({estado:req.param('estado'), revisor : req.query.revisor}).exec(function findOneCB(err, imagens){
 			return res.json(imagens);
         });
     },
