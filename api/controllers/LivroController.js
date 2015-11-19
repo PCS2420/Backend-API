@@ -54,5 +54,21 @@ module.exports = {
 			}
 			return res.send(response);
 		});
+	},
+	buscaLivrosByTituloAreaConAutor: function(req, res) {
+		var q = req.param('query');
+		var reg = new RegExp(q, "i");
+		Livro.find({$or: [{autor : reg}, {titulo : reg}, {areaConhecimento: reg}]}).exec(function afterwards(err, livros){
+			if (err) {return res.send(500, err);}
+			return res.json(livros);
+        });
+	},
+	buscaLivrosRevisarByTituloAreaConAutor: function(req, res) {
+		var q = req.param('query');
+		var reg = new RegExp(q, "i");
+		Livro.find({$and : [{$or: [{autor : reg}, {titulo : reg}, {areaConhecimento: reg}]}, {precisaRevisar : true}]}).exec(function afterwards(err, livros){
+			if (err) {return res.send(500, err);}
+			return res.json(livros);
+        });
 	}
 };
