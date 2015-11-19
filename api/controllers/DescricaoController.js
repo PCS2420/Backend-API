@@ -43,7 +43,7 @@ module.exports = {
 			return res.send(500, "Parametros incorretos");
 		}
 		// voce vai passar o id com certeza absoluta, nao é? 
-        Descricao.update(novaDescricao.descId, {texto: novaDescricao.texto}).exec(function(err, descricao) { //descricao e' uma array
+        Descricao.update(novaDescricao.descId, {texto: novaDescricao.texto, estado: "Espera"}).exec(function(err, descricao) { //descricao e' uma array
             if (err) { return res.send(500, err); }
             //Atualiza imagem
 			var updateImagem = {};
@@ -71,38 +71,38 @@ module.exports = {
             //Atualiza imagem
             Imagem.update(descricao[0].imagem,{estado:'Revisado'}).exec(function afterwards(err, imagem){
                 if (err) { return res.send(500, err); }
-            });
+				
+				//Recupera info do usuario
+				Usuario.findOne(descricao[0].descritor).exec(function findOneCB(err, descritor){ 
 
-            //Recupera info do usuario
-            Usuario.findOne(descricao[0].descritor).exec(function findOneCB(err, descritor){ 
+					if (descritor.tipo != "Revisor"){
+						Pontuacao.findOne({nome: 'pontuacao_v1'}).exec(function findOneCB(err, pontuacao){ 
 
-                if (descritor.tipo != "Revisor"){
-                    Pontuacao.findOne({nome: 'pontuacao_v1'}).exec(function findOneCB(err, pontuacao){ 
+							//Logica para atualizar pontuacao e tipo de usuario
+							var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoAceita);
+							var novoTipo = descritor.tipo
+							if (novaPontuacao > pontuacao.limiarPositivo)
+							{
+								novoTipo = 'DescritorRevisor'
+							} else if (novaPontuacao < pontuacao.limiarNegativo)
+							{
+								novoTipo = 'Bloqueado'
+							} else 
+							{
+								novoTipo = 'Descritor'
+							}
 
-                        //Logica para atualizar pontuacao e tipo de usuario
-                        var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoAceita);
-                        var novoTipo = descritor.tipo
-                        if (novaPontuacao > pontuacao.limiarPositivo)
-                        {
-                            novoTipo = 'DescritorRevisor'
-                        } else if (novaPontuacao < pontuacao.limiarNegativo)
-                        {
-                            novoTipo = 'Bloqueado'
-                        } else 
-                        {
-                            novoTipo = 'Descritor'
-                        }
-
-                        //Atualiza descritor
-                        Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
-                            if (err) {
-                                return res.send(500, err);
-                            }
-                            return res.send(descritorAtualizado);
-                        });
-                    });
-                }
-            });  
+							//Atualiza descritor
+							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
+								if (err) {
+									return res.send(500, err);
+								}
+								return res.send(descritorAtualizado);
+							});
+						});
+					}
+				});  
+            });           
         });    
     },
 
@@ -120,38 +120,38 @@ module.exports = {
             //Atualiza imagem
             Imagem.update(descricao[0].imagem,{estado:'Revisado'}).exec(function afterwards(err, imagem){
                 if (err) { return res.send(500, err); }
-            });
 
-            //Recupera info do usuario
-            Usuario.findOne(descricao[0].descritor).exec(function findOneCB(err, descritor){ 
+				//Recupera info do usuario
+				Usuario.findOne(descricao[0].descritor).exec(function findOneCB(err, descritor){ 
 
-                if (descritor.tipo != "Revisor"){
-                    Pontuacao.findOne({nome: 'pontuacao_v1'}).exec(function findOneCB(err, pontuacao){ 
+					if (descritor.tipo != "Revisor"){
+						Pontuacao.findOne({nome: 'pontuacao_v1'}).exec(function findOneCB(err, pontuacao){ 
 
-                        //Logica para atualizar pontuacao e tipo de usuario
-                        var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoEditada);
-                        var novoTipo = descritor.tipo
-                        if (novaPontuacao > pontuacao.limiarPositivo)
-                        {
-                            novoTipo = 'DescritorRevisor'
-                        } else if (novaPontuacao < pontuacao.limiarNegativo)
-                        {
-                            novoTipo = 'Bloqueado'
-                        } else 
-                        {
-                            novoTipo = 'Descritor'
-                        }
+							//Logica para atualizar pontuacao e tipo de usuario
+							var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoEditada);
+							var novoTipo = descritor.tipo
+							if (novaPontuacao > pontuacao.limiarPositivo)
+							{
+								novoTipo = 'DescritorRevisor'
+							} else if (novaPontuacao < pontuacao.limiarNegativo)
+							{
+								novoTipo = 'Bloqueado'
+							} else 
+							{
+								novoTipo = 'Descritor'
+							}
 
-                        //Atualiza descritor
-                        Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
-                            if (err) {
-                                return res.send(500, err);
-                            }
-                            return res.send(descritorAtualizado);
-                        });
-                    });
-                }
-            });  
+							//Atualiza descritor
+							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
+								if (err) {
+									return res.send(500, err);
+								}
+								return res.send(descritorAtualizado);
+							});
+						});
+					}
+				}); 
+            }); 
         });
     },
 
@@ -164,46 +164,43 @@ module.exports = {
         //Atualiza descricao
         Descricao.update(descricao_id,{estado:'Rejeitada', revisor: revisor_id}).exec(function afterwards(err, descricao){
             if (err) {  return res.send(500, err);  }
-			console.log(descricao);
             //Atualiza imagem
             Imagem.update(descricao[0].imagem,{estado:'Aberto', descricao: "", descritor: "", revisor: ""}).exec(function afterwards(err, imagem){
-                if (err) { return res.send(500, err); }
+                if (err) { return res.send(500, err); }            
+				
+				//Recupera info do usuario
+				Usuario.findOne(descricao[0].descritor).exec(function findOneCB(err, descritor){
+					if (err) { return res.send(500, err); }
+
+					if (descritor.tipo != "Revisor"){
+						Pontuacao.findOne({nome: 'pontuacao_v1'}).exec(function findOneCB(err, pontuacao){ 
+							if (err) { return res.send(500, err); }
+
+							//Logica para atualizar pontuacao e tipo de usuario
+							var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoRejeitada);
+							var novoTipo = descritor.tipo;
+							if (novaPontuacao > pontuacao.limiarPositivo)
+							{
+								novoTipo = 'DescritorRevisor'
+							} else if (novaPontuacao < pontuacao.limiarNegativo)
+							{
+								novoTipo = 'Bloqueado';
+							} else 
+							{
+								novoTipo = 'Descritor';
+							}
+
+							//Atualiza descritor
+							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
+								if (err) {
+									return res.send(500, err);
+								}
+								return res.send(descritorAtualizado);
+							});
+						});
+					}
+				});
             });
-
-
-            //Recupera info do usuario
-            Usuario.findOne(descricao[0].descritor).exec(function findOneCB(err, descritor){ 
-                if (err) { return res.send(500, err); }
-
-                if (descritor.tipo != "Revisor"){
-                    Pontuacao.findOne({nome: 'pontuacao_v1'}).exec(function findOneCB(err, pontuacao){ 
-                        if (err) { return res.send(500, err); }
-
-                        //Logica para atualizar pontuacao e tipo de usuario
-                        var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoRejeitada);
-                        var novoTipo = descritor.tipo
-                        if (novaPontuacao > pontuacao.limiarPositivo)
-                        {
-                            novoTipo = 'DescritorRevisor'
-                        } else if (novaPontuacao < pontuacao.limiarNegativo)
-                        {
-                            novoTipo = 'Bloqueado'
-                        } else 
-                        {
-                            novoTipo = 'Descritor'
-                        }
-
-                        //Atualiza descritor
-                        Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
-                            if (err) {
-                                return res.send(500, err);
-                            }
-                            return res.send(descritorAtualizado);
-                        });
-                    });
-                }
-                
-            });  
         });
     }
 };
