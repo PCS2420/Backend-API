@@ -90,19 +90,26 @@ module.exports = {
 							//Logica para atualizar pontuacao e tipo de usuario
 							var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoAceita);
 							var novoTipo = descritor.tipo
-							if (novaPontuacao > pontuacao.limiarPositivo)
+							var novaNotificacaoRebaixado = descritor.notificacaoRebaixado
+							var novaNotificacaoPromovido = descritor.notificacaoPromovido
+							var novaNotificacaoBloqueio = descritor.notificacaoBloqueio
+							var novaNotificacaoDescricaoAceita = true
+							if (descritor.tipo != 'DescritorRevisor' && novaPontuacao > pontuacao.limiarPositivo)
 							{
-								novoTipo = 'DescritorRevisor'
-							} else if (novaPontuacao < pontuacao.limiarNegativo)
+								novoTipo = 'DescritorRevisor'	
+								novaNotificacaoPromovido= true							
+							} else if (descritor.tipo != 'Bloqueado' &&  novaPontuacao < pontuacao.limiarNegativo)
 							{
 								novoTipo = 'Bloqueado'
-							} else 
+								novaNotificacaoBloqueio = true
+							} else if (descritor.tipo != 'Descritor' &&  descritor.pontuacao > pontuacao.limiarPositivo)
 							{
 								novoTipo = 'Descritor'
+								novaNotificacaoRebaixado = true
 							}
 
 							//Atualiza descritor
-							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
+							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo, notificacaoDescricaoAceita: novaNotificacaoDescricaoAceita, notificacaoRebaixado: novaNotificacaoRebaixado, notificacaoPromovido: novaNotificacaoPromovido, notificacaoBloqueio: novaNotificacaoBloqueio}).exec(function afterwards(err, descritorAtualizado){
 								if (err) {
 									return res.send(500, err);
 								}
@@ -139,19 +146,26 @@ module.exports = {
 							//Logica para atualizar pontuacao e tipo de usuario
 							var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoEditada);
 							var novoTipo = descritor.tipo
-							if (novaPontuacao > pontuacao.limiarPositivo)
+							var novaNotificacaoRebaixado = descritor.notificacaoRebaixado
+							var novaNotificacaoPromovido = descritor.notificacaoPromovido
+							var novaNotificacaoBloqueio = descritor.notificacaoBloqueio
+							var novaNotificacaoDescricaoEditada = true
+							if (descritor.tipo != 'DescritorRevisor' && novaPontuacao > pontuacao.limiarPositivo)
 							{
-								novoTipo = 'DescritorRevisor'
-							} else if (novaPontuacao < pontuacao.limiarNegativo)
+								novoTipo = 'DescritorRevisor'	
+								novaNotificacaoPromovido= true							
+							} else if (descritor.tipo != 'Bloqueado' &&  novaPontuacao < pontuacao.limiarNegativo)
 							{
 								novoTipo = 'Bloqueado'
-							} else 
+								novaNotificacaoBloqueio = true
+							} else if (descritor.tipo != 'Descritor' &&  descritor.pontuacao > pontuacao.limiarPositivo)
 							{
 								novoTipo = 'Descritor'
+								novaNotificacaoRebaixado = true
 							}
 
 							//Atualiza descritor
-							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
+							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo, notificacaoDescricaoEditada: novaNotificacaoDescricaoEditada, notificacaoRebaixado: novaNotificacaoRebaixado, notificacaoPromovido: novaNotificacaoPromovido, notificacaoBloqueio: novaNotificacaoBloqueio}).exec(function afterwards(err, descritorAtualizado){
 								if (err) {
 									return res.send(500, err);
 								}
@@ -188,19 +202,26 @@ module.exports = {
 							//Logica para atualizar pontuacao e tipo de usuario
 							var novaPontuacao = parseInt(descritor.pontuacao) + parseInt(pontuacao.descricaoRejeitada);
 							var novoTipo = descritor.tipo;
-							if (novaPontuacao > pontuacao.limiarPositivo)
+							var novaNotificacaoRebaixado = descritor.notificacaoRebaixado
+							var novaNotificacaoPromovido = descritor.notificacaoPromovido
+							var novaNotificacaoBloqueio = descritor.notificacaoBloqueio
+							var novaNotificacaoDescricaoRejeitada = true
+							if (descritor.tipo != 'DescritorRevisor' && novaPontuacao > pontuacao.limiarPositivo)
 							{
-								novoTipo = 'DescritorRevisor'
-							} else if (novaPontuacao < pontuacao.limiarNegativo)
+								novoTipo = 'DescritorRevisor'	
+								novaNotificacaoPromovido= true							
+							} else if (descritor.tipo != 'Bloqueado' &&  novaPontuacao < pontuacao.limiarNegativo)
 							{
-								novoTipo = 'Bloqueado';
-							} else 
+								novoTipo = 'Bloqueado'
+								novaNotificacaoBloqueio = true
+							} else if (descritor.tipo != 'Descritor' &&  descritor.pontuacao > pontuacao.limiarPositivo)
 							{
-								novoTipo = 'Descritor';
+								novoTipo = 'Descritor'
+								novaNotificacaoRebaixado = true
 							}
 
 							//Atualiza descritor
-							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo}).exec(function afterwards(err, descritorAtualizado){
+							Usuario.update(descritor.id,{pontuacao: novaPontuacao, tipo: novoTipo, notificacaoDescricaoRejeitada: novaNotificacaoDescricaoRejeitada, notificacaoRebaixado: novaNotificacaoRebaixado, notificacaoPromovido: novaNotificacaoPromovido, notificacaoBloqueio: novaNotificacaoBloqueio}).exec(function afterwards(err, descritorAtualizado){
 								if (err) {
 									return res.send(500, err);
 								}

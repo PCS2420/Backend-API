@@ -11,6 +11,12 @@ module.exports = {
 
     var novoUsuario = req.params.all()
     novoUsuario.pontuacao = 0
+	novoUsuario.notificacaoRebaixado = false;
+	novoUsuario.notificacaoPromovido = false;
+	novoUsuario.notificacaoBloqueio = false;
+	novoUsuario.notificacaoDescricaoAceita = false;
+	novoUsuario.notificacaoDescricaoEditada = false;
+	novoUsuario.notificacaoDescricaoRejeitada = false;
 
     Curso.find({ nome: novoUsuario.curso }, function(err1,cursos){
       if (err1) { res.send(500, err1); }
@@ -61,11 +67,30 @@ module.exports = {
           });
         }
       })
-
-
     })
+  },
+  
+  updateNotificacao: function(req, res){
+    var login = req.param('login');
+    var newNotificacaoRebaixado = req.param('newNotificacaoRebaixado');
+    var newNotificacaoPromovido = req.param('newNotificacaoPromovido');
+    var newNotificacaoBloqueio = req.param('newNotificacaoBloqueio');
+    var newNotificacaoDescricaoAceita = req.param('newNotificacaoDescricaoAceita');
+    var newNotificacaoDescricaoEditada = req.param('newNotificacaoDescricaoEditada');
+    var newNotificacaoDescricaoRejeitada = req.param('newNotificacaoDescricaoRejeitada');
 
-
+    Usuario.update({login:login},{notificacaoRebaixado:newNotificacaoRebaixado,
+								  notificacaoPromovido:newNotificacaoPromovido,
+								  notificacaoBloqueio:newNotificacaoBloqueio,
+								  notificacaoDescricaoAceita:newNotificacaoDescricaoAceita,
+								  notificacaoDescricaoEditada:newNotificacaoDescricaoEditada,
+								  notificacaoDescricaoRejeitada:newNotificacaoDescricaoRejeitada}).exec(function(err, updated){
+	  if(err){
+		res.send(500, {error: "DB Error"});
+	  }else{
+		res.send(200);
+	  }
+	});
 
   }
 

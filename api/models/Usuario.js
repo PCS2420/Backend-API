@@ -51,6 +51,30 @@ module.exports = {
 		nomePersonagem: {
 			type: 'string'
 		},
+		
+		notificacaoRebaixado: {
+			type: 'boolean'
+		},
+		/* Apenas para Descritor*/
+		notificacaoPromovido: {
+			type: 'boolean'
+		},
+		/* Apenas para Descritor*/
+		notificacaoBloqueio: {
+			type: 'boolean'
+		},
+		/* Apenas para Descritor*/
+		notificacaoDescricaoAceita: {
+			type: 'boolean'
+		},
+		/* Apenas para Descritor*/
+		notificacaoDescricaoEditada: {
+			type: 'boolean'
+		},
+		/* Apenas para Descritor*/
+		notificacaoDescricaoRejeitada: {
+			type: 'boolean'
+		},
 
 		/*Apenas Descritor e Revisor*/
 		curso: {
