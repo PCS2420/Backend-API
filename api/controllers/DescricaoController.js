@@ -14,16 +14,25 @@ module.exports = {
         if (novaDescricao.descId !== "-1") { // Ja existe, so' atualizar
             Descricao.update({id: novaDescricao.descId}, novaDescricao).exec( function afterwards(err, descricao) {
                 if (err) { return res.send(500, err); }
-                if (descricao.length === 0) return res.send(500, new Error('Descrição não encontrado.'));
-                descricao = descricao[0];
-                return res.send({id: descricao.id});
+                if (descricao.length === 0) {return res.send(500, new Error('Descrição não encontrada.'));}
+				descricao = descricao[0]; // perde array
+				
+				Imagem.update(novaDescricao.imagem, {descricao : descricao.id}).exec(function afterwards(err, imagemAtualizada){
+					if (err) { return res.send(500, err); }
+					return res.send({id: descricao.id});
+				});
             });
         } else {
             //Cria descricao
 			delete novaDescricao.descId; // deleta o -1 para nao guardar com id errado
             Descricao.create(novaDescricao, function(err, descricao) {
                 if (err) { return res.send(500, err); }
-                return res.send({id: descricao.id});
+				
+				// Atualiza a imagem com a descricao nova
+				Imagem.update(novaDescricao.imagem, {descricao : descricao.id}).exec(function afterwards(err, imagemAtualizada){
+					if (err) { return res.send(500, err); }
+					return res.send({id: descricao.id});
+				});
             });
         }
     },
