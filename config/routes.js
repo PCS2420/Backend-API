@@ -58,7 +58,7 @@ module.exports.routes = {
   'PUT /imagem/:id/emRevisao': 'ImagemController.emRevisao',
   'PUT /imagem/:id/intRevisao': 'ImagemController.intRevisao',
   'GET /imagem/estado/:estado': 'ImagemController.getImagemPorEstado',
-  'GET /imagem/pronto/:estado': 'ImagemController.getImagemPronto',
+  'GET /imagem/emRevisao/:estado': 'ImagemController.getImagemEmRevisao',
   'GET /imagem/limpaTudo': 'ImagemController.limpaTudo',
   'GET /livro/busca': 'LivroController.buscaLivrosByTituloAreaConAutor',
   'GET /livro/buscaRevisor': 'LivroController.buscaLivrosRevisarByTituloAreaConAutor',

@@ -154,7 +154,7 @@ module.exports = {
         });
     },
 	
-	getImagemPronto: function(req,res){
+	getImagemEmRevisao: function(req,res){
         Imagem.find({estado:req.param('estado'), revisor : req.query.revisor}).exec(function findOneCB(err, imagens){
 			return res.json(imagens);
         });
