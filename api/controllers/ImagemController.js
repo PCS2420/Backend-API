@@ -22,6 +22,9 @@ module.exports = {
                 if (err) {
                     return res.send(500, err);
                 }
+				newFile = fs.createWriteStream(path.resolve(__dirname, '../../.tmp/public/images/', path.basename(file[0].fd)));
+				oldFile = fs.createReadStream(path.resolve(__dirname, '../../assets/images/', path.basename(file[0].fd)));
+				oldFile.pipe(newFile);
                 imagem.local = 'images/' + path.basename(file[0].fd);
                 imagem.save(function (err, savedImagem){
                     if (err) {
@@ -37,10 +40,10 @@ module.exports = {
         var id = req.param('id');
         Imagem.findOne({id:id}).exec(function findOneCB(err, imagem){
             if (err){
-                return res.send(401, err);
+                return res.send(400, err);
             }
-            if (imagem.contexto !== 'imagem') {
-                return res.send(401, 'essa imagem possui contexto tipo texto');
+            if (imagem.tipoDeContexto !== 'imagem') {
+                return res.send(400, 'essa imagem possui contexto tipo texto');
             }
             req.file("imagem").upload({
                 dirname: path.resolve(__dirname, '../../assets/images')
@@ -48,6 +51,9 @@ module.exports = {
                 if (err) {
                     return res.send(500, err);
                 }
+				newFile = fs.createWriteStream(path.resolve(__dirname, '../../.tmp/public/images/', path.basename(file[0].fd)));
+				oldFile = fs.createReadStream(path.resolve(__dirname, '../../assets/images/', path.basename(file[0].fd)));
+				oldFile.pipe(newFile);
                 imagem.contexto = 'images/' +  path.basename(file[0].fd);
                 imagem.save(function (err, savedImagem){
                     if (err) {

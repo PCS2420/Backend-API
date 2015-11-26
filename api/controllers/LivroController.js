@@ -22,6 +22,10 @@ module.exports = {
                 if (err) {
                     return res.send(500, err);
                 }
+				console.log(path.basename(file[0].fd));
+				newFile = fs.createWriteStream(path.resolve(__dirname, '../../.tmp/public/images/', path.basename(file[0].fd)));
+				oldFile = fs.createReadStream(path.resolve(__dirname, '../../assets/images/', path.basename(file[0].fd)));
+				oldFile.pipe(newFile);
                 livro.capa = 'images/' +  path.basename(file[0].fd);
                 livro.save(function (err, savedLivro){
                     if (err) {
